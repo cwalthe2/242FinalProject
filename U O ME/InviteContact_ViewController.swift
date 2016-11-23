@@ -8,8 +8,9 @@
 
 import UIKit
 import Contacts
+import MessageUI
 
-class InviteContact_ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NavigationMenu_ViewControllerDelegate {
+class InviteContact_ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, NavigationMenu_ViewControllerDelegate {
 
     @IBOutlet var wholeView: UIView!
     @IBOutlet weak var contactTableView: UITableView!
@@ -25,6 +26,7 @@ class InviteContact_ViewController: UIViewController, UITableViewDataSource, UIT
         addNavigationMenu()
     }
     
+
 
 
     override func didReceiveMemoryWarning() {
@@ -54,23 +56,22 @@ class InviteContact_ViewController: UIViewController, UITableViewDataSource, UIT
     
     // Used https://code.tutsplus.com/tutorials/ios-9-an-introduction-to-the-contacts-framework--cms-25599
     func retrieveContactsWithStore(_ store: CNContactStore) {
+ 
+        let request = CNContactFetchRequest(keysToFetch: [CNContactIdentifierKey as CNKeyDescriptor, CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey as CNKeyDescriptor as CNKeyDescriptor])
+        
+        request.sortOrder = CNContactSortOrder.givenName
+        
         do {
-            
-            let request = CNContactFetchRequest(keysToFetch: [CNContactIdentifierKey as CNKeyDescriptor, CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey as CNKeyDescriptor, CNContactImageDataKey as CNKeyDescriptor])
-            
-            do {
-                try store.enumerateContacts(with: request) { contact, stop in
-                    self.contactsData.append(contact)
-                }
-            } catch {
-                print(error)
+            try store.enumerateContacts(with: request) { contact, stop in
+                self.contactsData.append(contact)
             }
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.contactTableView.reloadData()
-            })
         } catch {
             print(error)
         }
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.contactTableView.reloadData()
+        })
+
     }
     
     
@@ -104,16 +105,14 @@ class InviteContact_ViewController: UIViewController, UITableViewDataSource, UIT
         
         if (contact.isKeyAvailable(CNContactPhoneNumbersKey)) {
             //for phoneNumber:CNLabeledValue in contact.phoneNumbers {
+            if contact.phoneNumbers.count > 0{
             let phoneNumber:CNLabeledValue = contact.phoneNumbers[0]
                 let a = phoneNumber.value 
                 cell.phoneLabel.text = a.stringValue
-            //}
+            }
         }
         
-        if (contact.imageData != nil){
-            
-            cell.contactImageView.image = UIImage(data: contact.imageData!)!
-        }
+
         
         return cell
     }
@@ -136,27 +135,59 @@ class InviteContact_ViewController: UIViewController, UITableViewDataSource, UIT
     // This code is taken from the link below.
     // Why reinvent the wheel?
     // https://www.andrewcbancroft.com/2014/10/28/send-text-message-in-app-using-mfmessagecomposeviewcontroller-with-swift/
-    func sendTextMessage
-        (_ num: String) {
-        // Create a MessageComposer
-        let messageComposer = MessageComposer(number: num)
-        
+    func sendTextMessage(_ num: String) {
         
         // Make sure the device can send text messages
-        if (messageComposer.canSendText()) {
-            // Obtain a configured MFMessageComposeViewController
-            let messageComposeVC = messageComposer.configuredMessageComposeViewController()
-            
-            // Present the configured MFMessageComposeViewController instance
-            // Note that the dismissal of the VC will be handled by the messageComposer instance,
-            // since it implements the appropriate delegate call-back
+        if (canSendText()) {
+            let messageComposeVC = MFMessageComposeViewController()
+            messageComposeVC.messageComposeDelegate = self
+            messageComposeVC.recipients = [num]
+            messageComposeVC.body = "Do your friends owe you one? Download U O ME!"
             present(messageComposeVC, animated: true, completion: nil)
+            
         } else {
             // Let the user know if his/her device isn't able to send text messages
             let errorAlert = UIAlertView(title: "Cannot Send Text Message", message: "Your device is not able to send text messages.", delegate: self, cancelButtonTitle: "OK")
             errorAlert.show()
         }
+        
+        
+        
     }
+    
+    func canSendText() -> Bool {
+        return MFMessageComposeViewController.canSendText()
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        
+        print("FinishWithResult Called")
+        
+        switch result {
+        case MessageComposeResult.cancelled :
+            print("message canceled")
+            
+        case MessageComposeResult.failed :
+            print("message failed")
+            
+        case MessageComposeResult.sent :
+            print("message sent")
+        }
+        
+        
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -181,7 +212,14 @@ class InviteContact_ViewController: UIViewController, UITableViewDataSource, UIT
         
         addChildViewController(controller)
         controller.didMove(toParentViewController: self)
+     
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
         
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
     
     func showNavigationMenu() {
@@ -194,6 +232,25 @@ class InviteContact_ViewController: UIViewController, UITableViewDataSource, UIT
             self.wholeView.frame.origin.x = 0
             
         })
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                if (self.wholeView.frame.origin.x == 0){
+                    showNavigationMenu()
+                }
+            case UISwipeGestureRecognizerDirection.left:
+                if (self.wholeView.frame.origin.x != 0){
+                    hideNavigationMenu()
+                }
+                
+            default:
+                break
+            }
+        }
     }
     
     

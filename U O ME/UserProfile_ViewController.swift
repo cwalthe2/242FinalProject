@@ -34,6 +34,7 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource 
  set up a fake data base of friends */
     var friends=[User(name: "Collin", level: 0, image:UIImage(named:"profile_icon  30x30.png")!, points:0),User(name: "Nitish", level: 0, image:UIImage(named:"profile_icon  30x30.png")!, points:0),User(name: "Jayme", level: 0, image:UIImage(named:"profile_icon  30x30.png")!, points:0)]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()        
         
@@ -44,12 +45,17 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
         if let currUser=value{
             user=currUser
-        }
+        } 
         
         print(user.favorHistory.count)
         userName.text=user.name
         userLevel.text="Level: " + String(user.level)
         userPicture.image = user.picture
+        
+        badge1Label.text = "Complete 100 favors"
+        badge2Label.text = "Invite a friend"
+        badge3Label.text = "Consistency"
+        badge4Label.text = "Say cheese"
         
         
         

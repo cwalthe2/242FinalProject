@@ -89,7 +89,7 @@ class NavigationMenu_ViewController: UIViewController, UITableViewDataSource, UI
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: vc_name)
-        //self.presentViewController(controller, animated: true, completion: nil)
+        //self.present(controller, animated: true, completion: nil)
         
         
         let transition = CATransition()

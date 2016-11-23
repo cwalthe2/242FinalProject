@@ -83,7 +83,7 @@ class Badges_ViewController: UIViewController, UICollectionViewDataSource, UICol
         let backgroundView = UIView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backdrop.addSubview(backgroundView)
-        backgroundView.backgroundColor = UIColor.darkGray
+        backgroundView.backgroundColor = UIColor.yellow
         let bgHorizontalConstraint = NSLayoutConstraint(item: backgroundView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: backdrop, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
         let bgVerticalConstraint = NSLayoutConstraint(item: backgroundView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: backdrop, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0)
         let bgWidthConstraint = NSLayoutConstraint(item: backgroundView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 200)
@@ -115,6 +115,24 @@ class Badges_ViewController: UIViewController, UICollectionViewDataSource, UICol
         backgroundView.addConstraints([tlHorizontalConstraint, tlVerticalConstraint, tlWidthConstraint, tlHeightConstraint])
         
         
+        
+        let progLabel = UILabel()
+        progLabel.translatesAutoresizingMaskIntoConstraints = false
+        let p = NSString(format: "%.0f", badge.badgeProgress)
+        let t = NSString(format: "%.0f", badge.badgeTotal)
+        progLabel.text = "\(p) / \(t)"
+        progLabel.textAlignment = .center
+        progLabel.numberOfLines = 0
+        progLabel.font = UIFont(name: "Avenir", size: 14)
+        backgroundView.addSubview(progLabel)
+        let plHorizontalConstraint = NSLayoutConstraint(item: progLabel, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: backgroundView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
+        let plVerticalConstraint = NSLayoutConstraint(item: progLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: titleLabel, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 5)
+        let plWidthConstraint = NSLayoutConstraint(item: progLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 200-20)
+        let plHeightConstraint = NSLayoutConstraint(item: progLabel, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 30)
+        backgroundView.addConstraints([plHorizontalConstraint, plVerticalConstraint, plWidthConstraint, plHeightConstraint])
+        
+        
+        
         let descLabel = UILabel()
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         descLabel.text = badge.badgeDescription
@@ -123,7 +141,7 @@ class Badges_ViewController: UIViewController, UICollectionViewDataSource, UICol
         descLabel.font = UIFont(name: "Avenir", size: 14)
         backgroundView.addSubview(descLabel)
         let dlHorizontalConstraint = NSLayoutConstraint(item: descLabel, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: backgroundView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
-        let dlVerticalConstraint = NSLayoutConstraint(item: descLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: titleLabel, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 10)
+        let dlVerticalConstraint = NSLayoutConstraint(item: descLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: progLabel, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
         let dlWidthConstraint = NSLayoutConstraint(item: descLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 200-20)
         let dlHeightConstraint = NSLayoutConstraint(item: descLabel, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80)
         backgroundView.addConstraints([dlHorizontalConstraint, dlVerticalConstraint, dlWidthConstraint, dlHeightConstraint])
@@ -162,6 +180,13 @@ class Badges_ViewController: UIViewController, UICollectionViewDataSource, UICol
         addChildViewController(controller)
         controller.didMove(toParentViewController: self)
         
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
     
     func showNavigationMenu() {
@@ -174,6 +199,25 @@ class Badges_ViewController: UIViewController, UICollectionViewDataSource, UICol
             self.wholeView.frame.origin.x = 0
             
         })
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                if (self.wholeView.frame.origin.x == 0){
+                    showNavigationMenu()
+                }
+            case UISwipeGestureRecognizerDirection.left:
+                if (self.wholeView.frame.origin.x != 0){
+                    hideNavigationMenu()
+                }
+                
+            default:
+                break
+            }
+        }
     }
 
     

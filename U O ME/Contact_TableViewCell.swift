@@ -10,7 +10,6 @@ import UIKit
 
 class Contact_TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var contactImageView: UIImageView!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     

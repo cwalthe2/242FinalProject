@@ -60,17 +60,18 @@ class FavorFeed_ViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.topLabel.text = "collin earned 3 points from rohit for:"
             cell.favorTitleLabel.text = "Doing homework"
             
-            
+            //cell.clipsToBounds = true;
             
             return cell
         }
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return 108
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 110
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
@@ -100,6 +101,13 @@ class FavorFeed_ViewController: UIViewController, UITableViewDelegate, UITableVi
         addChildViewController(controller)
         controller.didMove(toParentViewController: self)
         
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
     
     func showNavigationMenu() {
@@ -114,6 +122,24 @@ class FavorFeed_ViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
 
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                if (self.wholeView.frame.origin.x == 0){
+                    showNavigationMenu()
+                }
+            case UISwipeGestureRecognizerDirection.left:
+                if (self.wholeView.frame.origin.x != 0){
+                    hideNavigationMenu()
+                }
+                
+            default:
+                break
+            }
+        }
+    }
     
     
     

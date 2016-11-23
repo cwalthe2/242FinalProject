@@ -12,7 +12,7 @@ import UIKit
 class NewsFeed_ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NavigationMenu_ViewControllerDelegate{
 
     @IBOutlet weak var newsTable: UITableView!
-    @IBOutlet var newsView: UIView!
+    @IBOutlet var wholeView: UIView!
     
     
     override func viewDidLoad() {
@@ -51,6 +51,8 @@ class NewsFeed_ViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         
+        //cell.clipsToBounds = true;
+        
         
         return cell
     }
@@ -71,7 +73,7 @@ class NewsFeed_ViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func navigationClick(_ sender: AnyObject) {
         
-        if (self.newsView.frame.origin.x == 0){
+        if (self.wholeView.frame.origin.x == 0){
             showNavigationMenu()
         }
         else{
@@ -89,21 +91,45 @@ class NewsFeed_ViewController: UIViewController, UITableViewDelegate, UITableVie
         addChildViewController(controller)
         controller.didMove(toParentViewController: self)
         
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
     
     func showNavigationMenu() {
-        UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { self.newsView.frame.origin.x = 250}, completion: nil)
+        UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { self.wholeView.frame.origin.x = 250}, completion: nil)
         
     }
     
     func hideNavigationMenu() {
         UIView.animate(withDuration: 0.25, animations: {
-            self.newsView.frame.origin.x = 0
+            self.wholeView.frame.origin.x = 0
             
         })
     }
 
-    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                if (self.wholeView.frame.origin.x == 0){
+                    showNavigationMenu()
+                }
+            case UISwipeGestureRecognizerDirection.left:
+                if (self.wholeView.frame.origin.x != 0){
+                    hideNavigationMenu()
+                }
+                
+            default:
+                break
+            }
+        }
+    }
     
     
     

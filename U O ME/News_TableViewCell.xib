@@ -56,7 +56,7 @@
                 <outlet property="favorTitleLabel" destination="nEW-a4-Ur8" id="eLP-WS-UeU"/>
                 <outlet property="topLabel" destination="zAy-qL-daK" id="OeH-ar-Un4"/>
             </connections>
-            <point key="canvasLocation" x="192" y="223"/>
+            <point key="canvasLocation" x="141" y="167"/>
         </tableViewCell>
     </objects>
 </document>

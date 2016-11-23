@@ -16,7 +16,6 @@
 		F005EBC81DD2B83B0048857C /* InviteContact_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F005EBC71DD2B83B0048857C /* InviteContact_ViewController.swift */; };
 		F005EBCB1DD3C8810048857C /* Contact_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F005EBC91DD3C8810048857C /* Contact_TableViewCell.swift */; };
 		F005EBCC1DD3C8810048857C /* Contact_TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F005EBCA1DD3C8810048857C /* Contact_TableViewCell.xib */; };
-		F005EBCE1DD406C60048857C /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F005EBCD1DD406C60048857C /* MessageComposer.swift */; };
 		F0085DB61DD63AEE00338BC1 /* 100Favors_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = F0085DB11DD63AEE00338BC1 /* 100Favors_badge.png */; };
 		F0085DB71DD63AEE00338BC1 /* Consistent_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = F0085DB21DD63AEE00338BC1 /* Consistent_badge.png */; };
 		F0085DB81DD63AEE00338BC1 /* InviteAFriend_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = F0085DB31DD63AEE00338BC1 /* InviteAFriend_badge.png */; };
@@ -86,7 +85,6 @@
 		F005EBC71DD2B83B0048857C /* InviteContact_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteContact_ViewController.swift; sourceTree = "<group>"; };
 		F005EBC91DD3C8810048857C /* Contact_TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact_TableViewCell.swift; sourceTree = "<group>"; };
 		F005EBCA1DD3C8810048857C /* Contact_TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Contact_TableViewCell.xib; sourceTree = "<group>"; };
-		F005EBCD1DD406C60048857C /* MessageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
 		F0085DB11DD63AEE00338BC1 /* 100Favors_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100Favors_badge.png; sourceTree = "<group>"; };
 		F0085DB21DD63AEE00338BC1 /* Consistent_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Consistent_badge.png; sourceTree = "<group>"; };
 		F0085DB31DD63AEE00338BC1 /* InviteAFriend_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InviteAFriend_badge.png; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 		F005EBCF1DD407C80048857C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F005EBCD1DD406C60048857C /* MessageComposer.swift */,
 				F005EBB81DD12CE20048857C /* KeychainWrapper.h */,
 				F005EBB91DD12CE20048857C /* KeychainWrapper.m */,
 			);
@@ -513,7 +510,6 @@
 				F005EBC81DD2B83B0048857C /* InviteContact_ViewController.swift in Sources */,
 				F0E528911DD57F1A00915DCE /* Badge_CollectionViewCell.swift in Sources */,
 				F023EF6D1DC924AB008C8AE5 /* AppDelegate.swift in Sources */,
-				F005EBCE1DD406C60048857C /* MessageComposer.swift in Sources */,
 				F0AF6F411DCA50DF0015FB3A /* NewsFeed_ViewController.swift in Sources */,
 				F0DA71471DCA6456007D1E62 /* News_TableViewCell.swift in Sources */,
 				F0DA714F1DCA902D007D1E62 /* Favor_TableViewCell.swift in Sources */,
