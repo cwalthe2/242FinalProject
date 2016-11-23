@@ -32,7 +32,6 @@
 		F076516E1DCC22C2006B52E9 /* NavigationMenu_TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F076516D1DCC22C2006B52E9 /* NavigationMenu_TableViewController.swift */; };
 		F0AF6F3F1DCA3FFB0015FB3A /* SignUp_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AF6F3E1DCA3FFB0015FB3A /* SignUp_ViewController.swift */; };
 		F0AF6F411DCA50DF0015FB3A /* NewsFeed_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AF6F401DCA50DF0015FB3A /* NewsFeed_ViewController.swift */; };
-		F0DA712C1DCA5CDC007D1E62 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0DA712B1DCA5CDC007D1E62 /* Images.xcassets */; };
 		F0DA71391DCA5EA9007D1E62 /* home_icon 30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = F0DA71351DCA5EA9007D1E62 /* home_icon 30x30.png */; };
 		F0DA713A1DCA5EA9007D1E62 /* news_icon 30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = F0DA71361DCA5EA9007D1E62 /* news_icon 30x30.png */; };
 		F0DA713B1DCA5EA9007D1E62 /* favor_icon 30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = F0DA71371DCA5EA9007D1E62 /* favor_icon 30x30.png */; };
@@ -107,7 +106,6 @@
 		F076516D1DCC22C2006B52E9 /* NavigationMenu_TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenu_TableViewController.swift; sourceTree = "<group>"; };
 		F0AF6F3E1DCA3FFB0015FB3A /* SignUp_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp_ViewController.swift; sourceTree = "<group>"; };
 		F0AF6F401DCA50DF0015FB3A /* NewsFeed_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeed_ViewController.swift; sourceTree = "<group>"; };
-		F0DA712B1DCA5CDC007D1E62 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F0DA71351DCA5EA9007D1E62 /* home_icon 30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_icon 30x30.png"; sourceTree = "<group>"; };
 		F0DA71361DCA5EA9007D1E62 /* news_icon 30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news_icon 30x30.png"; sourceTree = "<group>"; };
 		F0DA71371DCA5EA9007D1E62 /* favor_icon 30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favor_icon 30x30.png"; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 				F023EF9D1DC957D0008C8AE5 /* Images */,
 				F023EF701DC924AB008C8AE5 /* Main.storyboard */,
 				F023EF761DC924AB008C8AE5 /* Assets.xcassets */,
-				F0DA712B1DCA5CDC007D1E62 /* Images.xcassets */,
 				F023EF781DC924AB008C8AE5 /* LaunchScreen.storyboard */,
 				F023EF7B1DC924AB008C8AE5 /* Info.plist */,
 				F023EF731DC924AB008C8AE5 /* U_O_ME.xcdatamodeld */,
@@ -454,7 +451,6 @@
 			files = (
 				F0DA71481DCA6456007D1E62 /* News_TableViewCell.xib in Resources */,
 				F0085DB81DD63AEE00338BC1 /* InviteAFriend_badge.png in Resources */,
-				F0DA712C1DCA5CDC007D1E62 /* Images.xcassets in Resources */,
 				F0DA713C1DCA5EA9007D1E62 /* profile_icon 30x30.png in Resources */,
 				F0085DB91DD63AEE00338BC1 /* Level5_badge.png in Resources */,
 				F0DA71421DCA635B007D1E62 /* notification_icon.png in Resources */,
