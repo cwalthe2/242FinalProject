@@ -2,6 +2,7 @@
 
 Final project for CS242 - Universty of Illinois, Urbana-Champaign
 U O Me - Mobile application
+All rights reserved
 
 
 Project Purpose
@@ -11,7 +12,7 @@ Background/Motivation
 Venmo is a really popular app and they tie in the social aspect by allowing a user to see what his/her friends are paying other friends for. People need and give favors to their friends very frequently. Our app will provide a fun way to keep track of those favors that don’t have to require money (it can be any favor). 
 
 
-2.   Technical Specifications
+2.  	Technical Specifications
 	2.1	Platform: iOS Application
 	2.2	Programming languages: Objective-C/Swing
 	2.3	Stylistic conventions: CamelCase, function commenting
