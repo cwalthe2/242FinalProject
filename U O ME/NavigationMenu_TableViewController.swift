@@ -31,13 +31,14 @@ class NavigationMenu_ViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
+       print("Loading nav menu")
         var firstName : String = UserDefaults.standard.value(forKey: "firstName") as! String
         firstName = firstName + " "
         
         let lastName : String = UserDefaults.standard.value(forKey: "lastName") as! String
         let fullName : String = firstName + lastName
         usernameButton.setTitle(fullName, for: UIControlState())
+        loadProPic()
         
         navigationTableView.register(UINib(nibName: "MenuItem_TableViewCell", bundle: nil), forCellReuseIdentifier: "NavCell")
         configureMenuItems()
@@ -49,11 +50,24 @@ class NavigationMenu_ViewController: UIViewController, UITableViewDataSource, UI
         // Dispose of any resources that can be recreated.
     }
     
+    func loadProPic(){
+        if let imageData: NSData = UserDefaults.standard.value(forKey: "proPicData") as? NSData{
+        
+            let userProfileImage = UIImage(data: imageData as Data)
+            self.userImageView.image = userProfileImage
+        }
+        else{
+            
+        }
+        
+    }
+    
     func configureMenuItems() {
         menuItems = [
             menuItem(img: UIImage(named: "news_icon 30x30.png")!, name: "News Feed"),
             menuItem(img: UIImage(named: "favor_icon 30x30.png")!, name: "Favor Feed"),
-            menuItem(img: UIImage(named: "invite_icon 30x30.png")!, name: "Invite Friends")
+            menuItem(img: UIImage(named: "invite_icon 30x30.png")!, name: "Invite Friends"),
+            menuItem(img: UIImage(named: "logout_icon 30x30.png")!, name: "Logout")
             
         ]
         
@@ -85,7 +99,13 @@ class NavigationMenu_ViewController: UIViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         print("Clicked menuItem")
-        let vc_name = menuItems[indexPath.row].name
+        var vc_name = menuItems[indexPath.row].name
+        
+        if vc_name == "Logout"{
+            UserDefaults.standard.setValue("true", forKey: "isLoggingOut")
+            UserDefaults.standard.synchronize()
+            vc_name = "Main Screen"
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: vc_name)

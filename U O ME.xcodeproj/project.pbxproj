@@ -33,6 +33,7 @@
 		F071FE0A1DE771FE00D918AD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F071FE071DE771FE00D918AD /* Bolts.framework */; };
 		F071FE0B1DE771FE00D918AD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F071FE081DE771FE00D918AD /* FBSDKCoreKit.framework */; };
 		F071FE0C1DE771FE00D918AD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F071FE091DE771FE00D918AD /* FBSDKShareKit.framework */; };
+		F071FE0E1DE8D51700D918AD /* logout_icon 30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = F071FE0D1DE8D51700D918AD /* logout_icon 30x30.png */; };
 		F076516E1DCC22C2006B52E9 /* NavigationMenu_TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F076516D1DCC22C2006B52E9 /* NavigationMenu_TableViewController.swift */; };
 		F0AF6F3F1DCA3FFB0015FB3A /* SignUp_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AF6F3E1DCA3FFB0015FB3A /* SignUp_ViewController.swift */; };
 		F0AF6F411DCA50DF0015FB3A /* NewsFeed_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AF6F401DCA50DF0015FB3A /* NewsFeed_ViewController.swift */; };
@@ -111,6 +112,7 @@
 		F071FE071DE771FE00D918AD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		F071FE081DE771FE00D918AD /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F071FE091DE771FE00D918AD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		F071FE0D1DE8D51700D918AD /* logout_icon 30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout_icon 30x30.png"; sourceTree = "<group>"; };
 		F076516D1DCC22C2006B52E9 /* NavigationMenu_TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenu_TableViewController.swift; sourceTree = "<group>"; };
 		F0AF6F3E1DCA3FFB0015FB3A /* SignUp_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp_ViewController.swift; sourceTree = "<group>"; };
 		F0AF6F401DCA50DF0015FB3A /* NewsFeed_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeed_ViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				F0DA71361DCA5EA9007D1E62 /* news_icon 30x30.png */,
 				F0DA71371DCA5EA9007D1E62 /* favor_icon 30x30.png */,
 				F0DA71381DCA5EA9007D1E62 /* profile_icon 30x30.png */,
+				F071FE0D1DE8D51700D918AD /* logout_icon 30x30.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				F0DA713A1DCA5EA9007D1E62 /* news_icon 30x30.png in Resources */,
 				F005EBC61DD2A31F0048857C /* invite_icon 30x30.png in Resources */,
 				F0DA71391DCA5EA9007D1E62 /* home_icon 30x30.png in Resources */,
+				F071FE0E1DE8D51700D918AD /* logout_icon 30x30.png in Resources */,
 				F0085DB71DD63AEE00338BC1 /* Consistent_badge.png in Resources */,
 				F0085DBA1DD63AEE00338BC1 /* ProPic_badge.png in Resources */,
 				F0E5287B1DD555F300915DCE /* UserHistory_TableViewCell.xib in Resources */,

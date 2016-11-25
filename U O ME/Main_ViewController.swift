@@ -18,7 +18,6 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var propicImageView: UIImageView!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet var swipeRecognizer: UISwipeGestureRecognizer!
     
     
     override func viewDidLoad() {
@@ -38,8 +37,19 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         fbLoginButton.delegate = self
         
-        if let token = FBSDKAccessToken.current() {
-            fetchProfile()
+        if let isLoggingOut = UserDefaults.standard.value(forKey: "isLoggingOut") as? String {
+            if isLoggingOut == "true"{
+                let loginManager = FBSDKLoginManager()
+                loginManager.logOut()
+                UserDefaults.standard.setValue("false", forKey: "isLoggingOut")
+                UserDefaults.standard.synchronize()
+
+            }
+        }
+        
+         else if let token = FBSDKAccessToken.current() {
+            print("Already logged in to facebook")
+            performSegue(withIdentifier: "newsFeed", sender: self)
         }
     }
     
@@ -60,29 +70,28 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
             return
         }
         
-        fetchProfile()
         print("Successful facebook login")
+        fetchProfile()
+        print("Loaded profile")
+        
     }
     
     func fetchProfile() {
-        print("Fetch profile")
+        print("Fetching profile")
         
-        let parameters = ["fields": "id, email, first_name, last_name, picture.type(large)"]
-        FBSDKGraphRequest(graphPath: "/me", parameters: parameters)
+        let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
+        FBSDKGraphRequest(graphPath: "me", parameters: parameters)
             .start(completionHandler:  { (connection, result, error) in
                     let result = result as? NSDictionary
                     let email = result?["email"] as? String
                     let first_name = result?["first_name"] as? String
                     let last_name = result?["last_name"] as? String
-                    let id = result?["id"]  as? String
              
                 
                 print(email ?? "no email")
                 print(first_name ?? "no first name")
                 print(last_name ?? "no last name")
-                print(id ?? "no id")
                 
-                //self.propicImageView.image = self.getProfPic(fid: id!)
                 
                 if let profilePictureObj = result?.value(forKey: "picture") as? NSDictionary
                 {
@@ -93,38 +102,25 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
 
                         
                     let imageData = NSData(contentsOf: pictureUrl! as URL)
-                        
-                    if let imageData = imageData
-                    {
-                        let userProfileImage = UIImage(data: imageData as Data)
-                        self.propicImageView.image = userProfileImage
+                    UserDefaults.standard.setValue(imageData, forKey: "proPicData")
 
-                    }
                     
                     
                 }
                 
+                UserDefaults.standard.setValue(first_name, forKey: "firstName")
+                UserDefaults.standard.setValue(last_name, forKey: "lastName")
+                UserDefaults.standard.setValue(email, forKey: "email")
+                
+                UserDefaults.standard.synchronize()
+                print("Added info to NSUser Defaults")
+                self.performSegue(withIdentifier: "newsFeed", sender: self)
             })
     }
-    
-    func getProfPic(fid: String) -> UIImage? {
-        if (fid != "") {
-            let imgURLString = "http://graph.facebook.com/" + fid + "/picture?type=large" //type=normal
-            let imgURL = NSURL(string: imgURLString)
-            let imageData = NSData(contentsOf: imgURL! as URL)
-            let image = UIImage(data: imageData! as Data)
-            return image
-        }
-        return nil
-    }
+
     
 
 
-    func handleSwipe(_ sender:UISwipeGestureRecognizer){
-        if (sender.direction == .left){
-            print("swiped left")
-        }
-    }
 
     
     

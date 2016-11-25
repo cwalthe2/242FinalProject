@@ -45,12 +45,13 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
         if let currUser=value{
             user=currUser
-        } 
+        }
+        
+        loadProPic()
         
         print(user.favorHistory.count)
         userName.text=user.name
         userLevel.text="Level: " + String(user.level)
-        userPicture.image = user.picture
         
         badge1Label.text = "Complete 100 favors"
         badge2Label.text = "Invite a friend"
@@ -70,6 +71,17 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loadProPic(){
+        if let imageData: NSData = UserDefaults.standard.value(forKey: "proPicData") as? NSData{
+            
+            let userProfileImage = UIImage(data: imageData as Data)
+            self.userPicture.image = userProfileImage
+        }
+        else{
+            
+        }
     }
     
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int
