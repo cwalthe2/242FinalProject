@@ -9,7 +9,7 @@
 import UIKit
 
 
-class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource, NavigationMenu_ViewControllerDelegate {
     
     @IBOutlet weak var userPicture: UIImageView!
     @IBOutlet weak var favorHistory: UITableView!
@@ -18,7 +18,8 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource 
     var user:User!
     var value:User!
     
-    
+    @IBOutlet weak var wholeView: UIView!
+    @IBOutlet weak var leaderboardProgressView: LeaderboardProgress!
     
     @IBOutlet weak var badge1ImageView: UIImageView!
     @IBOutlet weak var badge1Label: UILabel!
@@ -66,6 +67,23 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
         favorHistory.register(UINib(nibName: "UserHistory_TableViewCell", bundle: nil), forCellReuseIdentifier: "FavorCell")
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        
+        
+        leaderboardProgressView.initBar()
+        
+        // The level of progress can be set from any point in the program.
+        //leaderboardProgressView.setProgressValue(currentValue: 0)
+        
+        
+        self.addNavigationMenu()
+    
+    }
+
+    @IBAction func addPoints(_ sender: Any) {
+        leaderboardProgressView.addPoints(points: 6)
+        userLevel.text = "Level \(leaderboardProgressView.getRank())"
     }
     
     override func didReceiveMemoryWarning() {
@@ -138,6 +156,81 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
     }
 */
+    
+    
+    
+
+    
+    
+    // MARK: Navigation Menu
+    
+    @IBAction func navigationClick(_ sender: AnyObject) {
+        print("Click nav button")
+        if (self.wholeView.frame.origin.x == 0){
+            print("Clidsfsd")
+            showNavigationMenu()
+        }
+        else{
+            print("d23qton")
+            hideNavigationMenu()
+        }
+    }
+    
+    
+    func addNavigationMenu() {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "NavigationMenuViewController")
+        self.view.insertSubview(controller.view, at: 0)
+        
+        addChildViewController(controller)
+        controller.didMove(toParentViewController: self)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    func showNavigationMenu() {
+        UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { self.wholeView.frame.origin.x = 250}, completion: nil)
+        
+    }
+    
+    func hideNavigationMenu() {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.wholeView.frame.origin.x = 0
+            
+        })
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                if (self.wholeView.frame.origin.x == 0){
+                    showNavigationMenu()
+                }
+            case UISwipeGestureRecognizerDirection.left:
+                if (self.wholeView.frame.origin.x != 0){
+                    hideNavigationMenu()
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+
+    
+    
+    
+    
+    
 }
 
 

@@ -47,7 +47,7 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         }
         
-         else if let token = FBSDKAccessToken.current() {
+        if let token = FBSDKAccessToken.current() {
             print("Already logged in to facebook")
             performSegue(withIdentifier: "newsFeed", sender: self)
         }
