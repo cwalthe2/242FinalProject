@@ -19,6 +19,13 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
+    var DB:uomeDB?
+    
+    @IBAction func insertUserToDB(_ sender: Any) {
+        DB = uomeDB()
+        //DB?.createTable()
+        //DB?.addUsers(ufirst: "FirstName", ulast: "LastName", uemail: "Email@ec", ulevel: 23)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +49,7 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 let loginManager = FBSDKLoginManager()
                 loginManager.logOut()
                 UserDefaults.standard.setValue("false", forKey: "isLoggingOut")
+                UserDefaults.standard.removeObject(forKey: "proPicData")
                 UserDefaults.standard.synchronize()
 
             }
@@ -49,7 +57,9 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         if let token = FBSDKAccessToken.current() {
             print("Already logged in to facebook")
-            performSegue(withIdentifier: "newsFeed", sender: self)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "News Feed")
+            self.present(controller, animated: true, completion: nil)
         }
     }
     
@@ -114,8 +124,9 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
                 UserDefaults.standard.synchronize()
                 print("Added info to NSUser Defaults")
-                self.performSegue(withIdentifier: "newsFeed", sender: self)
-            })
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "News Feed")
+                self.present(controller, animated: true, completion: nil)            })
     }
 
     
@@ -141,8 +152,9 @@ class Main_ViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         
             if checkLogin(usernameField.text!, password: passwordField.text!) {
-                performSegue(withIdentifier: "newsFeed", sender: self)
-            } else {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "News Feed")
+                self.present(controller, animated: true, completion: nil)            } else {
                 // 7.
                 let alertView = UIAlertController(title: "Login Problem",
                                                   message: "Wrong username or password." as String, preferredStyle:.alert)

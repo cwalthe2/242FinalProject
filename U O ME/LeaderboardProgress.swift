@@ -128,7 +128,7 @@ class LeaderboardProgress: UIView {
         self.setProgress(value: n*100)
     }
     
-    private func getMaxPointsFromRank() -> CGFloat{
+    func getMaxPointsFromRank() -> CGFloat{
         if rank >= 1 && rank <= 5{
             return 10
         }

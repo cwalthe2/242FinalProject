@@ -20,6 +20,16 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     @IBOutlet weak var wholeView: UIView!
     @IBOutlet weak var leaderboardProgressView: LeaderboardProgress!
+    @IBOutlet weak var leaderboardProgressLabel: UILabel!
+    
+    
+    @IBOutlet weak var weekTitleLabel: UILabel!
+    @IBOutlet weak var weekProgressBar: UIProgressView!
+    @IBOutlet weak var weekProgressLabel: UILabel!
+    var challenge: WeeklyChallenge = WeeklyChallenge()
+    @IBOutlet weak var checkmarkImageView: UIImageView!
+    @IBOutlet weak var weekRewardLabel: UILabel!
+    
     
     @IBOutlet weak var badge1ImageView: UIImageView!
     @IBOutlet weak var badge1Label: UILabel!
@@ -72,24 +82,86 @@ class UserProfile: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         
         leaderboardProgressView.initBar()
-        
-        // The level of progress can be set from any point in the program.
-        //leaderboardProgressView.setProgressValue(currentValue: 0)
+        loadWeeklyChallenge()
+        checkmarkImageView.isHidden = true
         
         
         self.addNavigationMenu()
     
     }
-
-    @IBAction func addPoints(_ sender: Any) {
-        leaderboardProgressView.addPoints(points: 6)
-        userLevel.text = "Level \(leaderboardProgressView.getRank())"
-    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+
+    @IBAction func addPoints(_ sender: Any) {
+        addToLeaderboard(num: 6)
+    }
+    
+    
+    func addToLeaderboard(num: Int){
+        leaderboardProgressView.addPoints(points: num)
+        userLevel.text = "Level \(leaderboardProgressView.getRank())"
+        
+        let points = leaderboardProgressView.getRankPoints()
+        let max = Int(leaderboardProgressView.getMaxPointsFromRank())
+        leaderboardProgressLabel.text = "\(points) / \(max)"
+    }
+    
+    
+    func loadWeeklyChallenge(){
+        // fetch current challenge from database
+        let title = "Complete 5 favors"
+        let reqPoints = 5
+        let rew = 5
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        
+        challenge = WeeklyChallenge(title: title, currPoints: 0, reqPoints: reqPoints, reward: rew)
+        
+        weekTitleLabel.text = title
+        weekProgressLabel.text = "0/\(reqPoints)"
+        weekProgressBar.progress = 0
+        weekRewardLabel.text = "\(rew) Points"
+    }
+    
+    func updateWeeklyChallenge(){
+        weekProgressLabel.text = "\(challenge.currPoints)/\(challenge.reqPoints)"
+        
+        let prog = Float(challenge.currPoints)/Float(challenge.reqPoints)
+        weekProgressBar.progress = prog
+        
+        if prog == 1{
+            if checkmarkImageView.isHidden == true{
+                    checkmarkImageView.isHidden = false
+                addToLeaderboard(num: challenge.reward)
+            }
+        }
+    }
+    
+    func addToWeeklyChallenge(num: Int){
+        print("here now")
+        if checkmarkImageView.isHidden == true{
+            print("Adding:", num)
+            challenge.currPoints += num
+            if challenge.currPoints > challenge.reqPoints{
+                challenge.currPoints = challenge.reqPoints
+            }
+            
+            updateWeeklyChallenge()
+        }
+    }
+    
+    
+    @IBAction func addToWeekly(_ sender: Any) {
+        print("here")
+        addToWeeklyChallenge(num: 1)
+    }
+    
+    
     
     func loadProPic(){
         if let imageData: NSData = UserDefaults.standard.value(forKey: "proPicData") as? NSData{
